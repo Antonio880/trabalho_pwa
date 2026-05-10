@@ -1,37 +1,42 @@
-var CACHE_NOME = 'catalogo-pwa-v3';
-
-var ARQUIVOS_CACHE = [
+const CACHE_NOME = 'catalogo-v1';
+const RECURSOS = [
+  './',
   './index.html',
   './style.css',
   './script.js',
   './manifest.json'
 ];
 
-self.addEventListener('install', (evento) => {
+self.addEventListener('install', function (evento) {
   evento.waitUntil(
-    caches.open(CACHE_NOME).then((cache) => {
-      return cache.addAll(ARQUIVOS_CACHE);
+    caches.open(CACHE_NOME).then(function (cache) {
+      return cache.addAll(RECURSOS);
     })
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (evento) => {
+self.addEventListener('activate', function (evento) {
   evento.waitUntil(
-    caches.keys().then((chaves) => {
+    caches.keys().then(function (chaves) {
       return Promise.all(
         chaves
-          .filter((chave) => chave !== CACHE_NOME)
-          .map((chave) => caches.delete(chave))
+          .filter(function (chave) {
+            return chave !== CACHE_NOME;
+          })
+          .map(function (chave) {
+            return caches.delete(chave);
+          })
       );
     })
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (evento) => {
+// Estratégia: Cache First (tenta cache, se não tiver vai na rede)
+self.addEventListener('fetch', function (evento) {
   evento.respondWith(
-    caches.match(evento.request).then((respostaCache) => {
+    caches.match(evento.request).then(function (respostaCache) {
       return respostaCache || fetch(evento.request);
     })
   );

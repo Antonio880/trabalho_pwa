@@ -125,14 +125,19 @@ body {
 
 #hero-bg {
   position: absolute;
-  top: -25%;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: 150%;
-  background-color: var(--cor-suave);
-  will-change: transform;
+  height: 100%;
+  background: linear-gradient(135deg,
+      #1a1a2e 0%,
+      #0f3460 30%,
+      #1a1a2e 50%,
+      #16213e 70%,
+      #e94560 110%);
+  background-size: 300% 300%;
+  animation: gradienteMovendo 10s ease infinite;
+  will-change: background-position;
 }
-
 
 #hero-conteudo {
   position: relative;
@@ -516,6 +521,20 @@ footer {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes gradienteMovendo {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
   }
 }
 

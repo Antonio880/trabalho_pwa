@@ -1,6 +1,6 @@
 const CHAVE_STORAGE = 'catalogo_produtos';
 
-const IMAGEM_PADRAO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180'%3E%3Crect fill='%230f3460' width='300' height='180'/%3E%3Ctext fill='%23e94560' font-family='sans-serif' font-size='14' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3ESem imagem%3C/text%3E%3C/SVG%3E";
+const IMAGEM_PADRAO = "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180'%3E%3Crect fill='%230f3460' width='300' height='180'/%3E%3Ctext fill='%23e94560' font-family='sans-serif' font-size='16' font-weight='bold' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3ESem imagem%3C/text%3E%3C/svg%3E";
 
 const PRODUTOS_EXEMPLO = [
   {
@@ -152,7 +152,7 @@ function criarCard(produto) {
 
   card.innerHTML =
     '<div class="card-imagem">' +
-    '<img alt="' + escaparHTML(produto.nome) + '" data-src="' + (produto.imagem || '') + '">' +
+    '<img src="' + IMAGEM_PADRAO + '" alt="' + escaparHTML(produto.nome) + '" data-src="' + (produto.imagem || '') + '">' +
     '<span class="badge-categoria">' + escaparHTML(produto.categoria) + '</span>' +
     badgeEstoqueBaixo +
     '</div>' +
@@ -250,19 +250,6 @@ function submeterForm(evento) {
   atualizarListaFiltrada();
 }
 
-function iniciarParallax() {
-  var heroBg = document.getElementById('hero-bg');
-  var heroConteudo = document.getElementById('hero-conteudo');
-
-  document.addEventListener('mousemove', function (e) {
-    var dx = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
-    var dy = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-
-    heroBg.style.transform = 'translate(' + (dx * 40) + 'px, ' + (dy * 22) + 'px)';
-    heroConteudo.style.transform = 'translate(' + (dx * 16) + 'px, ' + (dy * 9) + 'px)';
-  });
-}
-
 function atualizarListaFiltrada() {
   const termo = document.getElementById('busca').value;
   const categoria = document.getElementById('filtro-categoria').value;
@@ -273,7 +260,6 @@ function atualizarListaFiltrada() {
 function inicializar() {
   renderizarCatalogo(obterTodos());
 
-  iniciarParallax();
   document.getElementById('btn-adicionar').addEventListener('click', function () {
     abrirModal(null);
   });

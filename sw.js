@@ -7,31 +7,31 @@ var ARQUIVOS_CACHE = [
   './manifest.json'
 ];
 
-self.addEventListener('install', function (evento) {
+self.addEventListener('install', (evento) => {
   evento.waitUntil(
-    caches.open(CACHE_NOME).then(function (cache) {
+    caches.open(CACHE_NOME).then((cache) => {
       return cache.addAll(ARQUIVOS_CACHE);
     })
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', function (evento) {
+self.addEventListener('activate', (evento) => {
   evento.waitUntil(
-    caches.keys().then(function (chaves) {
+    caches.keys().then((chaves) => {
       return Promise.all(
         chaves
-          .filter(function (chave) { return chave !== CACHE_NOME; })
-          .map(function (chave) { return caches.delete(chave); })
+          .filter((chave) => chave !== CACHE_NOME)
+          .map((chave) => caches.delete(chave))
       );
     })
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', function (evento) {
+self.addEventListener('fetch', (evento) => {
   evento.respondWith(
-    caches.match(evento.request).then(function (respostaCache) {
+    caches.match(evento.request).then((respostaCache) => {
       return respostaCache || fetch(evento.request);
     })
   );

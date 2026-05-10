@@ -54,7 +54,7 @@ const PRODUTOS_EXEMPLO = [
     preco: 599.00,
     categoria: 'Eletrônicos',
     descricao: 'Relógio inteligente com monitor cardíaco, GPS e 7 dias de bateria.',
-    imagem: 'https://picsum.photos/seed/watch/300/180',
+    imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg7JXAJQ3GR2-pmobH2qXUttNBa_9ftMyhRA&s',
     estoque: 4
   }
 ];

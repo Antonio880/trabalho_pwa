@@ -33,7 +33,6 @@ self.addEventListener('activate', function (evento) {
   self.clients.claim();
 });
 
-// Estratégia: Cache First (tenta cache, se não tiver vai na rede)
 self.addEventListener('fetch', function (evento) {
   evento.respondWith(
     caches.match(evento.request).then(function (respostaCache) {
